@@ -3,44 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页 - 林泓楠</title>
+    <title>林泓楠 (Hongnan Lin) - 个人主页</title>
     <style>
+        /* --- 全局样式 --- */
+        :root {
+            --primary-color: #0056b3; /* 主题蓝 */
+            --secondary-color: #007bff;/* 亮蓝 */
+            --dark-color: #333; /* 深色文字 */
+            --light-color: #f4f4f4; /* 浅色背景 */
+            --white-color: #fff; /* 白色 */
+            --gray-color: #6c757d; /* 灰色文字 */
+            --border-color: #dee2e6; /* 边框色 */
+            --shadow: 0 4px 8px rgba(0,0,0,0.1); /* 卡片阴影 */
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.7;
         }
-        h1 {
-            color: #0056b3;
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        p {
-            line-height: 1.6;
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-top: 0;
         }
-        .contact-info {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ccc;
+
+        h2 {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            position: relative;
         }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            background: var(--white-color);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .navbar .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar .nav-links li {
+            margin-left: 20px;
+        }
+        .navbar .nav-links a {
+            font-weight: 500;
+        }
+
+        /* --- 介绍/英雄区域 --- */
+        #hero {
+            background: var(--white-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80vh;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+        }
+        
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--white-color);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .hero-text .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            margin-bottom: 20px;
+        }
+        
+        .hero-links a {
+            margin-right: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* --- 关于我 --- */
+        #about {
+            background: var(--white-color);
+        }
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* --- 项目 --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--white-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .project-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        .project-card p {
+            flex-grow: 1; /* 让p标签占据多余空间，将下方的标签和链接推到底部 */
+            margin-bottom: 20px;
+        }
+        
+        .project-tags {
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #e9ecef;
+            color: var(--gray-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .project-links a {
+            font-weight: bold;
+        }
+
+        /* --- 技能 & 教育 --- */
+        .skills-education-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: flex-start;
+        }
+        #skills .skills-list {
+            list-style: none;
+            padding: 0;
+        }
+        #skills .skills-list li {
+            background: var(--white-color);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+            font-weight: 500;
+        }
+        #education .edu-item {
+            background: var(--white-color);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: var(--shadow);
+        }
+        #education .edu-item h3 {
+            margin: 0 0 5px 0;
+        }
+        #education .edu-item .edu-details {
+            font-weight: bold;
+            color: var(--gray-color);
+        }
+        #education .edu-item p {
+            margin: 0;
+        }
+
+        /* --- 联系方式 --- */
+        #contact {
+            text-align: center;
+        }
+        .contact-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        .email-links {
+            margin-bottom: 40px;
+        }
+        .email-links a {
+            margin: 0 15px;
+        }
+        
+        .resume-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+        }
+
+        .resume-button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 123, 255, 0.3);
+            color: var(--white-color);
+        }
+
+        /* --- 页脚 --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--white-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                text-align: center;
+            }
+            .skills-education-grid {
+                grid-template-columns: 1fr;
+            }
+            .navbar .container {
+                flex-direction: column;
+            }
+            .navbar .nav-links {
+                margin-top: 10px;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <h1>欢迎来到我的个人主页！</h1>
-    <p>你好，我叫林泓楠。我是一名计算机科学专业的学生，对多智能体系统，视频理解，三维重建非常感兴趣。</p>
-    <p>这里将展示我的研究成果、项目和个人经历。</p>
 
-    <h2>联系方式</h2>
-    <div class="contact-info">
-        <p><strong>邮箱：</strong> hongnanlin390@gmail.com</p>
-        <p><strong>LinkedIn：</strong> <a href="" target="_blank">linkedin.com/in/yourprofile</a></p>
-        <p><strong>GitHub：</strong> <a href="https://github.com/LinLoveZyt" target="_blank">github.com/your-username</a></p>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Hongnan Lin</a>
+            <ul class="nav-links">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目经历</a></li>
+                <li><a href="#skills">专业技能</a></li>
+                <li><a href="#contact">联系我</a></li>
+            </ul>
         </div>
+    </nav>
 
-    <h2>我的项目</h2>
-    <ul>
-        <li>Auto_Arxiv： 这是一个关于基于本地部署的小模型的多智能体科研助手的项目。</li>
-    </ul>
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>林泓楠 (Hongnan Lin)</h1>
+                    <p class="subtitle">华南理工大学计算机拔尖班学生 | 对多智能体、3D视觉和视频理解充满热情的开发者</p>
+                    <p>你好！欢迎来到我的个人主页。在这里，你将看到我的项目、学习经历和技术思考。</p>
+                    <div class="hero-links">
+                        <a href="https://github.com/LinLoveZyt" target="_blank">GitHub</a>
+                        <a href="mailto:hongnanlin390@gmail.com">Email</a>
+                    </div>
+                </div>
+                <img src="profile.jpg" alt="林泓楠个人照片" class="hero-photo">
+            </div>
+        </div>
+    </section>
 
-    <p>感谢您的访问！</p>
+    <section id="about">
+        <div class="container">
+            <h2>关于我</h2>
+            <p>
+                我叫林泓楠，是华南理工大学（SCUT）计算机科学拔尖班的一名大一（准大二）学生。从小我就对计算机科学抱有浓厚的兴趣，对我而言，能够通过代码和技术将想象中的创意变为现实，是一件极具幸福感和成就感的事情。在学术探索中，我曾跟随实验室师兄学习三维重建（如NeRFs和3DGS）与视频理解（如DETR类模型和近期的LVLM方法），并独立完成过多个多智能体相关的小项目。
+            </p>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>项目经历</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Auto_Arxiv</h3>
+                    <p>一个多智能体科研助手，旨在帮助研究人员自动追踪、总结和归类最新的、个性化的高质量arXiv论文，并能自动生成调研报告。项目还能在本地构建知识库，辅助科研问答。</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Multi-Agent</span>
+                        <span class="tag">LangChain</span>
+                        <span class="tag">Ollama</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/LinLoveZyt/auto_arxiv" target="_blank">查看源码 &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Study_Chicken</h3>
+                    <p>一个在线学习番茄钟项目。它利用基于图像感知的深度学习算法，通过摄像头实时判断用户的学习专注度，为用户提供专注度分析反馈。</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Deep Learning</span>
+                        <span class="tag">ResNet50</span>
+                        <span class="tag">Computer Vision</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" target="_blank">项目开发中</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>MathSolver</h3>
+                    <p>一个侵入式触发的、基于Python工具增强的多智能体数学解答项目。通过智能体的协作，解决复杂的数学问题。（注：项目正在参加比赛，细节暂不公开。）</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Multi-Agent</span>
+                        <span class="tag">Tool Enhancement</span>
+                        <span class="tag">Competition</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" target="_blank">敬请期待</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Auto_Programmer</h3>
+                    <p>一个旨在通过AI模型自动完成Python项目代码的探索性项目。目前该项目仍在早期开发阶段。</p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">AI Model</span>
+                        <span class="tag">Code Generation</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" target="_blank">项目开发中</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container skills-education-grid">
+            <div id="skills-section">
+                <h2>专业技能</h2>
+                <ul class="skills-list">
+                    <li>Python (PyTorch, LangChain)</li>
+                    <li>C++</li>
+                    <li>Kotlin</li>
+                    <li>Docker</li>
+                    <li>Git & GitHub</li>
+                    <li>多智能体系统设计</li>
+                    <li>基础深度学习与计算机视觉</li>
+                </ul>
+            </div>
+            <div id="education">
+                <h2>教育背景</h2>
+                <div class="edu-item">
+                    <h3>华南理工大学 (SCUT)</h3>
+                    <p class="edu-details">计算机科学与工程学院 | 计算机科学拔尖基地班</p>
+                    <p>2024年 - 至今</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" style="background: var(--white-color);">
+        <div class="container">
+            <h2>联系我</h2>
+            <div class="contact-content">
+                <p>我非常乐于交流与合作，欢迎通过以下方式与我取得联系。</p>
+                <div class="email-links">
+                    <a href="mailto:hongnanlin390@gmail.com">个人邮箱 (Gmail)</a>
+                    <a href="mailto:202430580649@mail.scut.edu.cn">学校邮箱 (SCUT)</a>
+                </div>
+                <a href="resume.pdf" class="resume-button" target="_blank">下载我的简历</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 林泓楠 (Hongnan Lin). All Rights Reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
